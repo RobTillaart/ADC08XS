@@ -73,6 +73,12 @@ uint16_t ADC08XS::maxValue()
 }
 
 
+uint8_t ADC08XS::maxChannel()
+{
+  return _maxChannel;
+}
+
+
 uint32_t ADC08XS::count()
 {
   return _count;

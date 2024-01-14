@@ -8,7 +8,7 @@
 #include "ADC08XS.h"
 
 ADC082S adc01;           //  use HWSPI
-ADC082S adc02(5, 6, 7);  //  use SWSPI
+ADC124S adc02(5, 6, 7);  //  use SWSPI
 
 uint32_t start, stop;
 
@@ -52,13 +52,21 @@ void setup()
 
 void loop()
 {
+  uint16_t val0 = adc01.read(0);
+  uint16_t val1 = adc01.read(1);
   Serial.print("adc01:\t");
-  uint16_t val = adc01.read(0);
-  Serial.println(val);
+  Serial.print(val0);
+  Serial.print("\t");
+  Serial.println(val1);
 
   Serial.print("adc02:\t");
-  val = adc02.read(0);
-  Serial.println(val);
+  for (uint8_t ch = 0 ; ch < adc02.maxChannel(); ch++)
+  {
+    uint16_t val = adc02.read(ch);
+    Serial.print(val);
+    Serial.print("\t");
+  }
+  Serial.println();
 
   delay(5000);
 }
