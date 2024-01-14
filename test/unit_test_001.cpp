@@ -33,12 +33,12 @@
 
 
 #include "Arduino.h"
-#include "ADC081S.h"
+#include "ADC08XS.h"
 
 
 unittest_setup()
 {
-  fprintf(stderr, "ADC081S_LIB_VERSION: %s\n", (char *) ADC081S_LIB_VERSION);
+  fprintf(stderr, "ADC08XS_LIB_VERSION: %s\n", (char *) ADC08XS_LIB_VERSION);
 }
 
 
@@ -49,11 +49,20 @@ unittest_teardown()
 
 unittest(test_constructor)
 {
-  ADC081S ADC_01;
+  ADC082S ADC_1;
+  ADC102S ADC_2;
+  ADC124S ADC_3;
 
-  ADC_01.begin(10);
+  ADC_1.begin(7);
+  ADC_2.begin(8);
+  ADC_3.begin(9);
 
-  assertEqual(255, ADC_01.maxValue());
+  assertEqual(255,  ADC_1.maxValue());
+  assertEqual(2,    ADC_1.maxChannel());
+  assertEqual(1023, ADC_2.maxValue());
+  assertEqual(2,    ADC_2.maxChannel());
+  assertEqual(4095, ADC_3.maxValue());
+  assertEqual(4,    ADC_3.maxChannel());
 }
 
 

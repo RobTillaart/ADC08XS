@@ -40,8 +40,6 @@ Feedback is as always welcome.
 
 #### Performance
 
-redo
-
 Although the ADC08XS is rated at 200 KSPS, an Arduino UNO will not
 be able to fetch that much samples from the device. 
 The reason is that an UNO cannot fetch the bits fast enough from the device.
@@ -51,6 +49,8 @@ For the faster ones, see below, at 1 MSPS one need a clock of at least 16 MHz
 + time to process the incoming data. 
 A faster processor like an ESP32 or Teensy might do the job.
 
+Investigations should be made for a sort of continuous mode.
+This would have the CS line constantly low and read from the same address over and over.
 To be tested, feedback welcome.
 
 
@@ -151,7 +151,6 @@ of the ADC first to get optimal speed.
 #### Could
 
 - unit tests possible?
-
 
 
 
