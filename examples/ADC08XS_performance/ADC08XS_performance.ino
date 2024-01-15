@@ -1,12 +1,12 @@
 //
 //    FILE: ADC08XS_performance.ino
 //  AUTHOR: Rob Tillaart
-// PURPOSE: performance measurement for ADC081S SPI based ADC
-//     URL: https://github.com/RobTillaart/ADC081S
-//
+// PURPOSE: performance measurement for ADC082S SPI based ADC
+//     URL: https://github.com/RobTillaart/ADC08XS
 
 
 #include "ADC08XS.h"
+
 
 ADC082S adc;  //  HW SPI
 // ADC082S adc(5, 6, 7);    //  SW SPI UNO   - adjust pins if needed

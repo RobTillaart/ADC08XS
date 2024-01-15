@@ -7,10 +7,12 @@
 
 #include "ADC08XS.h"
 
+
 ADC082S adc01;           //  use HWSPI
 ADC124S adc02(5, 6, 7);  //  use SWSPI
 
 uint32_t start, stop;
+
 
 void setup()
 {
