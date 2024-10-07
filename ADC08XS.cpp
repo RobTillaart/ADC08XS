@@ -1,7 +1,7 @@
 //
 //    FILE: ADC08XS.cpp
 //  AUTHOR: Rob Tillaart
-// VERSION: 0.2.2
+// VERSION: 0.3.0
 //    DATE: 2024-01-13
 // PURPOSE: Arduino library for ADC082S, ADC084S, ADC102S, ADC104S, ADC122S, ADC124S,
 //                              8, 10, 12 bits, 2 or 4 channel ADC (SPI).
@@ -50,7 +50,7 @@ void ADC08XS::begin(uint8_t select)
   digitalWrite(_select, LOW);
   digitalWrite(_select, HIGH);
 
-  _spi_settings = SPISettings(_SPIspeed, MSBFIRST, SPI_MODE0);
+  _spi_settings = SPISettings(_SPIspeed, MSBFIRST, SPI_MODE3);
 
   if (_hwSPI)          //  hardware SPI
   {
@@ -101,7 +101,7 @@ int ADC08XS::deltaRead(uint8_t chanA, uint8_t chanB)
 void ADC08XS::setSPIspeed(uint32_t speed)
 {
   _SPIspeed = speed;
-  _spi_settings = SPISettings(_SPIspeed, MSBFIRST, SPI_MODE0);
+  _spi_settings = SPISettings(_SPIspeed, MSBFIRST, SPI_MODE3);
 }
 
 
@@ -193,13 +193,15 @@ uint16_t  ADC08XS::swSPI_transfer16(uint16_t address, uint16_t m)
   uint16_t addr = address;
 
   uint16_t rv = 0;
+  digitalWrite(clk, LOW);
   for (uint16_t mask = m; mask; mask >>= 1)
   {
     digitalWrite(dao, (addr & mask));
-    digitalWrite(clk, LOW);
     digitalWrite(clk, HIGH);
+    digitalWrite(clk, LOW);
     if (digitalRead(dai) == HIGH) rv |= mask;
   }
+  digitalWrite(clk, HIGH);
   return rv;
 }
 

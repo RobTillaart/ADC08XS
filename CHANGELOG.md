@@ -6,6 +6,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
+## [0.3.0] - 2024-10-06
+- Fix #9, set SPI_MODE3
+- redo SWSPI too
+- 
+
+----
+
 ## [0.2.2] - 2024-06-02
 - add support for ARDUINO_ARCH_MBED
 
