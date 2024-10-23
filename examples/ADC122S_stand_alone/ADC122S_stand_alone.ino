@@ -10,7 +10,7 @@
 
 uint16_t val;
 
-uint8_t selectPin = 10;
+uint8_t selectPin = 4;
 
 
 int readADC(uint8_t channel)
@@ -18,12 +18,14 @@ int readADC(uint8_t channel)
   uint8_t chan = 0x08;
   if (channel != 0) chan = 0x00;
 
-  SPI.beginTransaction(SPISettings(100000, MSBFIRST, SPI_MODE3));
   digitalWrite(selectPin, LOW);
-  uint16_t data = SPI.transfer(chan) << 8;
+  SPI.beginTransaction(SPISettings(1000000, MSBFIRST, SPI_MODE3));
+  //  uint16_t data = SPI.transfer(chan);
+  uint16_t data = SPI.transfer(chan);
+  data <<= 8;
   data += SPI.transfer(0);
-  digitalWrite(selectPin, HIGH);
   SPI.endTransaction();
+  digitalWrite(selectPin, HIGH);
 
   return data;
 }

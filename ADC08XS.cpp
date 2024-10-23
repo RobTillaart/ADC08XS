@@ -59,10 +59,10 @@ void ADC08XS::begin(uint8_t select)
   }
   else                 //  software SPI
   {
-    pinMode(_dataIn, INPUT);
+    pinMode(_dataIn, INPUT_PULLUP);
     pinMode(_dataOut, OUTPUT);
     pinMode(_clock,  OUTPUT);
-    digitalWrite(_dataOut, LOW);
+    digitalWrite(_dataOut, HIGH);
     digitalWrite(_clock,   HIGH);
   }
 }
@@ -184,7 +184,7 @@ void ADC08XS::shutDown()
 }
 
 
-//  MSBFIRST
+//  MSBFIRST, SPI MODE 3
 uint16_t  ADC08XS::swSPI_transfer16(uint16_t address, uint16_t m)
 {
   uint8_t clk = _clock;
@@ -193,15 +193,14 @@ uint16_t  ADC08XS::swSPI_transfer16(uint16_t address, uint16_t m)
   uint16_t addr = address;
 
   uint16_t rv = 0;
-  digitalWrite(clk, LOW);
+  //  Page 2 datasheet ADC122s101
   for (uint16_t mask = m; mask; mask >>= 1)
   {
-    digitalWrite(dao, (addr & mask));
-    digitalWrite(clk, HIGH);
     digitalWrite(clk, LOW);
+    digitalWrite(dao, ((addr >> 8) & mask) > 0);
+    digitalWrite(clk, HIGH);
     if (digitalRead(dai) == HIGH) rv |= mask;
   }
-  digitalWrite(clk, HIGH);
   return rv;
 }
 

@@ -35,6 +35,7 @@ public:
   //       HARDWARE SPI
   ADC08XS(__SPI_CLASS__ * mySPI = &SPI);
   //       SOFTWARE SPI
+  //       datain = MISO, dataout is MOSI
   ADC08XS(uint8_t dataIn, uint8_t dataOut, uint8_t clock);
 
   void     begin(uint8_t select);
