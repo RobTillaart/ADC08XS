@@ -10,10 +10,10 @@
 //  Arduino UNO
 const int dataout = 11;
 const int datain = 12;
-const int clock = 13;
+const int clockPin = 13;
 
 ADC122S adc;  //  use HWSPI
-// ADC122S adc(datain, dataout, clock); //  use SWSPI
+// ADC122S adc(datain, dataout, clockPin); //  use SWSPI
 
 uint16_t val;
 

@@ -42,6 +42,8 @@ public:
 
   uint16_t maxValue();
   uint8_t  maxChannel();
+  uint8_t  lastChannel();
+
   uint16_t read(uint8_t channel);
   int      deltaRead(uint8_t chanA, uint8_t chanB);
 
@@ -66,6 +68,7 @@ protected:
 
   uint16_t _maxValue;
   uint8_t  _maxChannel;
+  uint8_t  _lastChannel;
   uint16_t readADC(uint8_t channel);
   void     shutDown();
 
