@@ -7,8 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 
 ## [0.3.0] - 2024-10-06
-- Fix #9, set SPI_MODE3.
-- redo SWSPI too.
+- fix #9, set SPI_MODE3, tests see #9
+- redo software SPI too.
 - add **uint8_t lastChannel()**
 - if channel changes do an extra read.
 - add examples.

@@ -167,52 +167,61 @@ uint16_t ADC08XS::readADC(uint8_t channel)
   if (channel != _lastChannel)
   {
     _lastChannel = channel;
-    digitalWrite(_select, LOW);
+
     if (_hwSPI)  //  hardware SPI
     {
       _mySPI->beginTransaction(_spi_settings);
-       data = _mySPI->transfer16(address);
+      //  after beginTransaction to prevent false clock edges.
+      digitalWrite(_select, LOW);
+      data = _mySPI->transfer16(address);
+      digitalWrite(_select, HIGH);
       _mySPI->endTransaction();
     }
     else  //  Software SPI
     {
-       data = swSPI_transfer16(address);
+      digitalWrite(_select, LOW);
+      data = swSPI_transfer16(address);
+      digitalWrite(_select, HIGH);
     }
-    digitalWrite(_select, HIGH);
   }
 
   //  call to retrieve actual data
-  digitalWrite(_select, LOW);
   if (_hwSPI)  //  hardware SPI
   {
     _mySPI->beginTransaction(_spi_settings);
-     data = _mySPI->transfer16(address);
+    digitalWrite(_select, LOW);
+    data = _mySPI->transfer16(address);
+    digitalWrite(_select, HIGH);
     _mySPI->endTransaction();
   }
   else  //  Software SPI
   {
-     data = swSPI_transfer16(address);
+    digitalWrite(_select, LOW);
+    data = swSPI_transfer16(address);
+    digitalWrite(_select, HIGH);
   }
-  digitalWrite(_select, HIGH);
-
   return data;
 }
 
 
 void ADC08XS::shutDown()
 {
-  digitalWrite(_select, LOW);
+
   if (_hwSPI)  //  hardware SPI
   {
     _mySPI->beginTransaction(_spi_settings);
+    digitalWrite(_select, LOW);
     _mySPI->transfer(0);        //  8 pulses
+    digitalWrite(_select, HIGH);
     _mySPI->endTransaction();
   }
   else  //  Software SPI
   {
-     swSPI_transfer16(0, 0x0010);  //  4 pulses is enough
+    digitalWrite(_select, LOW);
+    swSPI_transfer16(0, 0x0010);  //  4 pulses is enough
+    digitalWrite(_select, HIGH);
   }
-  digitalWrite(_select, HIGH);
+
 }
 
 
